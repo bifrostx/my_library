@@ -1,0 +1,3 @@
+{% if book_num %}
+<li><a href="{% url 'books:book_list' %}">All Books </a>({{ book_num }})</li>
+{% endif %}

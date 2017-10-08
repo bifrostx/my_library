@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+{% load books_template_tags %}
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>My Books</title>
+    </head>
+
+    <body>
+        <div>
+            <ul>
+                <li><a href="{% url 'books:index' %}">Home</a></li>
+                {% get_counts %}
+                <li><a href="{% url 'books:add_category' %}">Add New Category</a></li>
+                <li><a href="{% url 'books:about' %}">About</a></li>
+            </ul>
+        </div>
+        <div>
+            {% block body_block %}
+            {% endblock %}
+        </div>
+    </body>
+</html>

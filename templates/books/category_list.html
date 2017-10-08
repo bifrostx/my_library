@@ -1,0 +1,15 @@
+{% extends 'books/base.html' %}
+{% load staticfiles %}
+
+{% block body_block %}
+    <h1>All Categories</h1>
+    {% if category_list %}
+        {% for c in category_list %}
+        <ul>
+            <li><a href="{% url 'books:show_category' c.slug %}">{{ c.name }}</a> - {{ c.likes }} likes</li>
+        </ul>
+        {% endfor %}
+    {% else %}
+        <p>No category yet.</p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'books/base.html' %}
+{% load staticfiles %}
+    
+{% block body_block %}
+    <form role="form" id="category_form" method="post"
+          action="{% url 'books:add_category' %}">
+    <h2>Add a Category</h2>
+        {% csrf_token %}
+        {% for hidden in form.hidden_fields %}
+            {{ hidden }}
+        {% endfor %}
+        {% for field in form.visible_fields %}
+            {{ field.errors }}
+            {{ field.help_text }}<br />
+            {{ field }}<br />
+        {% endfor %}
+        <br />
+        <button type="submit" name="submit">Create Category</button>
+    </form>
+{% endblock %}

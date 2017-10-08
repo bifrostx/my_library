@@ -1,0 +1,15 @@
+{% extends 'books/base.html' %}
+{% load staticfiles %}
+
+{% block body_block %}
+    <h1>All Books</h1>
+    {% if book_list %}
+        {% for b in book_list %}
+        <ul>
+            <li><a href="{% url 'books:show_book' b.id %}">{{ b.title }}</a> - {{ b.author }}</li>
+        </ul>
+        {% endfor %}
+    {% else %}
+        <p>No books yet.</p>
+    {% endif %}
+{% endblock %}
