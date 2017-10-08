@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Category, Book
+from .models import Category, Book, Tag
 from .forms import CategoryForm, BookForm
 
 
@@ -35,6 +35,7 @@ def show_category(request, category_name_slug):
 
 def show_book(request, id):
     book = Book.objects.get(pk=id)
+    tags = Tag.objects.filter(book=book)
     try:
         form = BookForm(
             {"title": book.title,
@@ -60,8 +61,7 @@ def show_book(request, id):
             return render(request, 'books/show_book.html', {'form': form, 'book': book})
         else:
             print(form.errors)
-
-    return render(request, 'books/show_book.html', {'form': form, 'book': book})
+    return render(request, 'books/show_book.html', {'form': form, 'book': book, 'tags': tags})
 
 
 def add_book(request, category_name_slug):

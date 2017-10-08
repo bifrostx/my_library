@@ -1,5 +1,5 @@
 from django import forms
-from books.models import Category, Book
+from books.models import Category, Book, Tag
 
 
 class CategoryForm(forms.ModelForm):
@@ -15,7 +15,6 @@ class CategoryForm(forms.ModelForm):
 
 
 class BookForm(forms.ModelForm):
-    # tag = forms.CheckboxSelectMultiple()
 
     title = forms.CharField(label='Title:', max_length=128,
                             help_text="Please enter the title of the book.")
@@ -42,3 +41,12 @@ class BookForm(forms.ModelForm):
     class Meta:
         model = Book
         exclude = ('category', 'tag', 'views', 'likes', 'downloads', 'date_uploaded', 'dated_modified',)
+
+
+class TagForm(forms.ModelForm):
+    tag = forms.CharField(label='Tag:', max_length=32,
+                            help_text="Please enter the tag name to add a tag.")
+
+    class Meta:
+        model = Tag
+        fields = ('tag',)
