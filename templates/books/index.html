@@ -20,7 +20,7 @@
             {% for book in recent_uploaded_books %}
                 <ul>
                     <li>
-                        {{ book.title }} - {{ book.author }} - {{ book.date_uploaded }}
+                        <a href="{% url 'books:show_book' book.id %}">{{ book.title }}</a> - {{ book.author }} - {{ book.date_uploaded }}
                     </li>
                 </ul>
             {% endfor %}
@@ -34,7 +34,7 @@
             {% for book in most_liked_books %}
                 <ul>
                     <li>
-                        {{ book.title }} - {{ book.author }} - {{ book.likes }}
+                        <a href="{% url 'books:show_book' book.id %}">{{ book.title }}</a> - {{ book.author }} - {{ book.likes }}
                     </li>
                 </ul>
             {% endfor %}

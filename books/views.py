@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Category, Book, Tag
-from .forms import CategoryForm, BookForm
+from .forms import CategoryForm, BookForm, TagForm
 
 
 def index(request):
@@ -62,6 +62,17 @@ def show_book(request, id):
         else:
             print(form.errors)
     return render(request, 'books/show_book.html', {'form': form, 'book': book, 'tags': tags})
+
+
+def add_tag(request, id):
+    book = Book.objects.get(pk=id)
+    if request.method == "POST":
+        print("is post")
+        form = TagForm(request.POST)
+        if form.is_valid():
+            tag = form.save(commit=True)
+            book.tag.add(tag)
+    return redirect('books:show_book', book.id)
 
 
 def add_book(request, category_name_slug):

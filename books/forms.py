@@ -44,7 +44,7 @@ class BookForm(forms.ModelForm):
 
 
 class TagForm(forms.ModelForm):
-    tag = forms.CharField(label='Tag:', max_length=32,
+    tag = forms.CharField(label='Add a new tag:', max_length=32,
                             help_text="Please enter the tag name to add a tag.")
 
     class Meta:
