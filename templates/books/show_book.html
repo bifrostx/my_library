@@ -3,23 +3,19 @@
 
 {% block body_block %}
     <div>
-        <h1>{{ book.title }} - by: {{ book.author }}</h1>
-        <a href="{% url 'books:edit_book' book.id %}">edit</a>
-        <hr />
-        <p><span>Tags:
-                {% if tags %}
-                    {% for tag in tags %}
-                        {{ tag }}
-                    {% endfor %}
-                {% endif %}
-            </span>
-            <span>
-                <form role="form" id="tag_form" method="post" action="{% url 'books:add_tag' book.id %}">
-                    {% csrf_token %}
-                    <input type="text" name="tag" id="id_tag" required maxlength="32" />
-                    <button type="submit" name="submit">Add a new tag to this book</button>
-                </form>
-            </span>
+        <h1>{{ book.title }} - by: {{ book.author }}
+            <a href="{% url 'books:edit_book' book.id %}"><span class="badge badge-primary">Edit</span></a></h1>
+        <p>
+            {% if tags %}
+                {% for tag in tags %}
+        <span class="badge badge-pill badge-success">{{ tag }}</span>
+                {% endfor %}
+            {% endif %}
+            <form role="form" id="tag_form" method="post" action="{% url 'books:add_tag' book.id %}">
+                {% csrf_token %}
+                <input type="text" name="tag" id="id_tag" required maxlength="32" />
+                <button type="submit" name="submit">Add a new tag to this book</button>
+            </form>
         </p>
         {% if book.upload %}
             <p>Download the book at <a href="{{ MEDIA_URL }}{{ book.upload }}">{{ MEDIA_URL }}{{ book.upload }}</a></p>
