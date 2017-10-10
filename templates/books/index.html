@@ -8,13 +8,14 @@
 </div>
 <div class="row marketing">
     <div class="col-lg-6">
-        <h4>Most Recent Books</h4>
+        <h4>Most downloaded Books</h4>
         <p>
-        {% if recent_uploaded_books %}
-            {% for book in recent_uploaded_books %}
+        {% if most_download_books %}
+            {% for book in most_download_books %}
                 <ul class="list-group">
                     <li class="list-group-item">
-                        <a href="{% url 'books:show_book' book.id %}">{{ book.title }}</a> - {{ book.author }} - {{ book.date_uploaded }}
+                        <a href="{% url 'books:show_book' book.id %}">{{ book.title }} </a>by: {{ book.author }}
+                        <span class="badge badge-pill badge-dark">{{ book.downloads }} downloads</span>
                     </li>
                 </ul>
             {% endfor %}
@@ -31,7 +32,8 @@
             {% for book in most_liked_books %}
                 <ul class="list-group">
                     <li class="list-group-item">
-                        <a href="{% url 'books:show_book' book.id %}">{{ book.title }}</a> - {{ book.author }} - {{ book.likes }}
+                        <a href="{% url 'books:show_book' book.id %}">{{ book.title }} </a>by: {{ book.author }}
+                        <span class="badge badge-pill badge-danger">{{ book.likes }} likes</span>
                     </li>
                 </ul>
             {% endfor %}

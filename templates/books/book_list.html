@@ -6,7 +6,9 @@
     {% if book_list %}
         {% for b in book_list %}
         <ul>
-            <li><a href="{% url 'books:show_book' b.id %}">{{ b.title }}</a> - {{ b.author }}</li>
+            <li>
+                <a href="{% url 'books:show_book' b.id %}">{{ b.title }}</a> - {{ b.author }}
+            </li>
         </ul>
         {% endfor %}
     {% else %}

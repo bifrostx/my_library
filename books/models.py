@@ -1,3 +1,4 @@
+import os.path
 from django.db import models
 from django.utils import timezone
 from django.template.defaultfilters import slugify
@@ -58,6 +59,9 @@ class Book(models.Model):
             self.date_uploaded = timezone.now()
         self.date_modified = timezone.now()
         return super(Book, self).save(*args, **kwargs)
+
+    def filename(self):
+        return os.path.basename(self.upload.name)
 
     def __str__(self):
         return self.title

@@ -1,15 +1,17 @@
 # -*- coding: utf-8 -*-
+import os
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from .models import Category, Book, Tag
 from .forms import CategoryForm, BookForm, TagForm
 
 
 def index(request):
-    recent_uploaded_books = Book.objects.order_by('-date_uploaded')[:5]
+    most_download_books = Book.objects.order_by('-downloads')[:5]
     most_liked_books = Book.objects.order_by('-likes')[:5]
     categories = Category.objects.all()
     return render(request, 'books/index.html',
-                  {"recent_uploaded_books": recent_uploaded_books,
+                  {"most_download_books": most_download_books,
                    "most_liked_books": most_liked_books,
                    "categories": categories})
 
@@ -59,7 +61,7 @@ def edit_book(request, id):
         form = BookForm(request.POST, request.FILES, instance=book)
         if form.is_valid():
             form.save(commit=True)
-            return render(request, 'books/edit_book.html', {'form': form, 'book': book})
+            return render(request, 'books/show_book.html', {'book': book, 'tags': tags})
         else:
             print(form.errors)
     return render(request, 'books/edit_book.html', {'form': form, 'book': book, 'tags': tags})
@@ -115,3 +117,10 @@ def add_category(request):
             print(form.errors)
 
     return render(request, 'books/add_category.html', {'form': form})
+
+
+def download(request, id):
+    book = Book.objects.get(pk=id)
+    book.downloads += 1
+    book.save()
+    return redirect('books:serve', book.upload)

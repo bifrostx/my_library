@@ -3,32 +3,33 @@
 
 {% block body_block %}
     <div>
-        <h1>{{ book.title }} - by: {{ book.author }}
-            <a href="{% url 'books:edit_book' book.id %}"><span class="badge badge-primary">Edit</span></a></h1>
+        <h1>{{ book.title }} <button type="button" class="btn btn-danger">{{ book.likes }} likes</button></h1>
+            <h4>by: {{ book.author }}</h4>
         <p>
+
+            <form role="form" id="tag_form" method="post" action="{% url 'books:add_tag' book.id %}">
             {% if tags %}
                 {% for tag in tags %}
-        <span class="badge badge-pill badge-success">{{ tag }}</span>
+                    <span class="badge badge-pill badge-success">{{ tag }}</span>
                 {% endfor %}
             {% endif %}
-            <form role="form" id="tag_form" method="post" action="{% url 'books:add_tag' book.id %}">
                 {% csrf_token %}
                 <input type="text" name="tag" id="id_tag" required maxlength="32" />
                 <button type="submit" name="submit">Add a new tag to this book</button>
             </form>
         </p>
         {% if book.upload %}
-            <p>Download the book at <a href="{{ MEDIA_URL }}{{ book.upload }}">{{ MEDIA_URL }}{{ book.upload }}</a></p>
+            <p>Download <a href="{% url 'books:download' book.id %}">{{ book.filename }}</a></p>
         {% else %}
             <p>No e-book uploaded yet.</p>
         {% endif %}
-        <hr />
         <ul>
             <li>publisher: {{ book.publisher }}</li>
             <li>Publish Date: {{ book.published_date }}</li>
             <li>URL: {{ book.related_url }}</li>
             <li>Description: {{ book.short_description }}</li>
         </ul>
+        <h2><a href="{% url 'books:edit_book' book.id %}"><span class="badge badge-primary">Edit</span></a></h2>
     </div>
 
 {% endblock %}
