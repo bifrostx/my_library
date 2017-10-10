@@ -1,3 +1,3 @@
 {% if book_num %}
-<li class="nav-item"><a class="nav-link" href="{% url 'books:book_list' %}">All Books ({{ book_num }})</a></li>
+<li class="nav-item"><a class="nav-link" href="{% url 'books:book_list' %}">All Books <span class="badge badge-secondary">{{ book_num }}</span></a></li>
 {% endif %}

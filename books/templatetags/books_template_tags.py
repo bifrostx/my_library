@@ -1,5 +1,5 @@
 from django import template
-from books.models import Book
+from books.models import Category, Book
 
 register = template.Library()
 
@@ -13,3 +13,9 @@ def get_counts():
         book_num = 0
 
     return {'book_num': book_num}
+
+
+@register.inclusion_tag('books/category_list.html')
+def category_list():
+    cats = Category.objects.all()
+    return {'category_list': cats}

@@ -10,6 +10,8 @@
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+        <!-- Custom styles for this template -->
+        <link href="{% static 'css/dashboard.css' %}" rel="stylesheet">
         <title>My Books</title>
     </head>
 
@@ -26,20 +28,26 @@
                     </li>
                     {% get_counts %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'books:add_category' %}">Add New Category</a></li>
-                    <li class="nav-item">
                         <a class="nav-link" href="{% url 'books:about' %}">About</a>
                     </li>
                 </ul>
             </div>
         </nav>
-        <div class="container">
-            {% block body_block %}
-            {% endblock %}
-            <hr>
-            <footer>
-                <p>&copy; bifrost 2017</p>
-            </footer>
+        <div class="container-fluid">
+            <div class="row">
+
+                <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
+                    <h4 class="col-sm-3">Categories</h4>
+                    {% block sidebar_block %}
+                        {% category_list %}
+                        <a class="col-sm-3 text-dark" href="{% url 'books:add_category' %}">Add Category</a>
+                    {% endblock %}
+                </nav>
+                <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
+                    {% block body_block %}
+                    {% endblock %}
+                </main>
+            </div>
         </div>
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->

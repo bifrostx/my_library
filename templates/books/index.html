@@ -2,44 +2,43 @@
 {% load staticfiles %}
 
 {% block body_block %}
-    <div>
-        <h1>All Categories</h1>
-        {% if categories %}
-            {% for category in categories %}
-                <ul>
-                    <li><a href="{% url 'books:show_category' category.slug %}">{{ category.name }}</a></li>
-                </ul>
-            {% endfor %}
-        {% else %}
-            <p>No category yet.</p>
-        {% endif %}
-    </div>
-    <div>
-        <h1>Most Recent Books</h1>
+<div class="jumbotron">
+    <h1 class="display-3">Welcome to the Library.</h1>
+    <p class="lead">-- A place to hold and share books.</p>
+</div>
+<div class="row marketing">
+    <div class="col-lg-6">
+        <h4>Most Recent Books</h4>
+        <p>
         {% if recent_uploaded_books %}
             {% for book in recent_uploaded_books %}
-                <ul>
-                    <li>
+                <ul class="list-group">
+                    <li class="list-group-item">
                         <a href="{% url 'books:show_book' book.id %}">{{ book.title }}</a> - {{ book.author }} - {{ book.date_uploaded }}
                     </li>
                 </ul>
             {% endfor %}
         {% else %}
-            <p>No book uploaded yet.</p>
+            <strong>No book uploaded yet.</strong>
         {% endif %}
+        </p>
     </div>
-    <div>
-        <h1>Most Liked Books</h1>
+
+    <div class="col-lg-6">
+        <h4>Most Liked Books</h4>
+        <p>
         {% if most_liked_books %}
             {% for book in most_liked_books %}
-                <ul>
-                    <li>
+                <ul class="list-group">
+                    <li class="list-group-item">
                         <a href="{% url 'books:show_book' book.id %}">{{ book.title }}</a> - {{ book.author }} - {{ book.likes }}
                     </li>
                 </ul>
             {% endfor %}
         {% else %}
-            <p>No book uploaded yet.</p>
+            <strong>No book uploaded yet.</strong>
         {% endif %}
+        </p>
     </div>
+</div>
 {% endblock %}
