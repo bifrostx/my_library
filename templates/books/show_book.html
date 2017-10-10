@@ -3,8 +3,8 @@
 
 {% block body_block %}
     <div>
-        <h1>{{ book.title }}</h1>
-        <p>{{ book.upload }}</p>
+        <h1>{{ book.title }} - by: {{ book.author }}</h1>
+        <a href="{% url 'books:edit_book' book.id %}">edit</a>
         <hr />
         <p><span>Tags:
                 {% if tags %}
@@ -21,25 +21,18 @@
                 </form>
             </span>
         </p>
+        {% if book.upload %}
+            <p>Download the book at <a href="{{ MEDIA_URL }}{{ book.upload }}">{{ MEDIA_URL }}{{ book.upload }}</a></p>
+        {% else %}
+            <p>No e-book uploaded yet.</p>
+        {% endif %}
         <hr />
+        <ul>
+            <li>publisher: {{ book.publisher }}</li>
+            <li>Publish Date: {{ book.published_date }}</li>
+            <li>URL: {{ book.related_url }}</li>
+            <li>Description: {{ book.short_description }}</li>
+        </ul>
     </div>
-    {% if form %}
-         <form role="form" id="book_form" method="post"
-          action="{% url 'books:show_book' book.id %}" enctype="multipart/form-data">
-        {% csrf_token %}
-        {% for hidden in form.hidden_fields %}
-            {{ hidden }}
-        {% endfor %}
-        {% for field in form.visible_fields %}
-            {{ field.errors }}
-            {{ field.help_text }}<br />
-            {{ field.label_tag }}
-            {{ field }}<br />
-        {% endfor %}
-         <br />
-        <button type="submit" name="update">Update</button>
-    </form>
-    {% else %}
-        <p>No such book.</p>
-    {% endif %}
+
 {% endblock %}

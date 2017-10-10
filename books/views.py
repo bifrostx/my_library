@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.shortcuts import render, redirect
 from .models import Category, Book, Tag
 from .forms import CategoryForm, BookForm, TagForm
@@ -33,7 +34,7 @@ def show_category(request, category_name_slug):
     return render(request, 'books/show_category.html', {'category': category, 'books': books})
 
 
-def show_book(request, id):
+def edit_book(request, id):
     book = Book.objects.get(pk=id)
     tags = Tag.objects.filter(book=book)
     try:
@@ -58,16 +59,21 @@ def show_book(request, id):
         form = BookForm(request.POST, request.FILES, instance=book)
         if form.is_valid():
             form.save(commit=True)
-            return render(request, 'books/show_book.html', {'form': form, 'book': book})
+            return render(request, 'books/edit_book.html', {'form': form, 'book': book})
         else:
             print(form.errors)
-    return render(request, 'books/show_book.html', {'form': form, 'book': book, 'tags': tags})
+    return render(request, 'books/edit_book.html', {'form': form, 'book': book, 'tags': tags})
+
+
+def show_book(request, id):
+    book = Book.objects.get(pk=id)
+    tags = Tag.objects.filter(book=book)
+    return render(request, 'books/show_book.html', {'book': book, 'tags': tags})
 
 
 def add_tag(request, id):
     book = Book.objects.get(pk=id)
     if request.method == "POST":
-        print("is post")
         form = TagForm(request.POST)
         if form.is_valid():
             tag = form.save(commit=True)

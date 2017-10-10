@@ -45,7 +45,7 @@ def populate():
          "publisher": "科学出版社出版",
          "published_date": "2017-01-01",
          "short_description": "广义相对论",
-         "related_url": "2017-01-01",
+         "related_url": "http://www.sinap.ac.cn",
          "views": 223,
          "likes": 32,
          "downloads": 45},
