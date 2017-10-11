@@ -1,4 +1,6 @@
 import os.path
+from datetime import datetime
+
 from django.db import models
 from django.utils import timezone
 from django.template.defaultfilters import slugify
@@ -62,6 +64,12 @@ class Book(models.Model):
 
     def filename(self):
         return os.path.basename(self.upload.name)
+
+    def is_recent(self):
+        if (timezone.now() - self.date_uploaded).days < 1:
+            return True
+        else:
+            return False
 
     def __str__(self):
         return self.title
