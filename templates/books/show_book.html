@@ -3,7 +3,12 @@
 
 {% block body_block %}
     <div>
-        <h1>{{ book.title }} <button type="button" class="btn btn-danger">{{ book.likes }} likes</button></h1>
+        <h1>{{ book.title }}</h1>
+        <strong id="like_count">{{ book.likes }}</strong>
+            <button type="button" id="likes" class="btn btn-danger" data-bookid="{{book.id}}">
+                like
+            </button>
+
             <h4>by: {{ book.author }}</h4>
         <p>
 

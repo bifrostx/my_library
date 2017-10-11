@@ -17,7 +17,8 @@ def index(request):
 
 
 def about(request):
-    return render(request, 'books/about.html', {"a": "a"})
+    print("about")
+    return render(request, 'books/about.html')
 
 
 def category_list(request):
@@ -124,3 +125,22 @@ def download(request, id):
     book.downloads += 1
     book.save()
     return redirect('books:serve', book.upload)
+
+
+def like_book(request):
+
+    print("ok")
+    book_id = None
+    if request.method == 'GET':
+        book_id = request.GET['book_id']
+
+    likes = 0
+    if book_id:
+        book = Book.objects.get(id=int(book_id))
+
+        if book:
+            likes = book.likes + 1
+            book.likes = likes
+            book.save()
+
+    return HttpResponse(likes)
