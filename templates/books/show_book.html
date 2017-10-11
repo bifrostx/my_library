@@ -4,12 +4,7 @@
 {% block body_block %}
     <div>
         <h1>{{ book.title }}</h1>
-        <strong id="like_count">{{ book.likes }}</strong>
-            <button type="button" id="likes" class="btn btn-danger" data-bookid="{{book.id}}">
-                like
-            </button>
 
-            <h4>by: {{ book.author }}</h4>
         <p>
 
             <form role="form" id="tag_form" method="post" action="{% url 'books:add_tag' book.id %}">
@@ -23,6 +18,10 @@
                 <button type="submit" name="submit">Add a new tag to this book</button>
             </form>
         </p>
+            <strong><span id="like_count">{{ book.likes }} </span>people like this book.</strong>
+            <button type="button" id="likes" class="btn btn-danger btn-sm" data-bookid="{{book.id}}">
+                like
+            </button></h2>
         {% if book.upload %}
             <p>Download <a href="{% url 'books:download' book.id %}">{{ book.filename }}</a></p>
         {% else %}

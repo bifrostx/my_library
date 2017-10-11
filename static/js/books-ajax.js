@@ -6,7 +6,6 @@ $(document).ready(function() {
     $('#likes').click(function(){
         var bookid;
         bookid = $(this).attr("data-bookid");
-        alert(bookid);
         $.get("/like/", {book_id: bookid}, function(data){
             $('#like_count').html(data);
             $('#likes').hide();

@@ -98,7 +98,10 @@ def add_book(request, category_name_slug):
                 book = form.save(commit=False)
                 book.category = category
                 form.save(commit=True)
-                return index(request)
+                tag = Tag.objects.get_or_create(tag=category.slug)[0]
+                book.tag.add(tag)
+                form.save(commit=True)
+                return redirect('books:show_category', category_name_slug)
         else:
             print(form.errors)
 
@@ -129,7 +132,6 @@ def download(request, id):
 
 def like_book(request):
 
-    print("ok")
     book_id = None
     if request.method == 'GET':
         book_id = request.GET['book_id']
