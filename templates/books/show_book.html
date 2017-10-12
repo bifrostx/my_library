@@ -5,34 +5,45 @@
     <div>
         <h1>{{ book.title }}</h1>
 
-        <p>
-
-            <form role="form" id="tag_form" method="post" action="{% url 'books:add_tag' book.id %}">
+        <p>Tags:
             {% if tags %}
                 {% for tag in tags %}
                     <span class="badge badge-pill badge-success">{{ tag }}</span>
                 {% endfor %}
             {% endif %}
-                {% csrf_token %}
-                <input type="text" name="tag" id="id_tag" required maxlength="32" />
-                <button type="submit" name="submit">Add a new tag to this book</button>
+            <form role="form" id="tag_form" method="post" action="{% url 'books:add_tag' book.id %}">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col">
+                    <input type="text" class="form-control" name="tag" id="id_tag" required maxlength="32" />
+                </div>
+                <div class="col">
+                    <button type="submit" class="btn btn-primary" name="submit">Add tag</button>
+                </div>
+            </div>
             </form>
         </p>
-            <strong><span id="like_count">{{ book.likes }} </span>people like this book.</strong>
-            <button type="button" id="likes" class="btn btn-danger btn-sm" data-bookid="{{book.id}}">
-                like
-            </button></h2>
-        {% if book.upload %}
-            <p>Download <a href="{% url 'books:download' book.id %}">{{ book.filename }}</a></p>
-        {% else %}
-            <p>No e-book uploaded yet.</p>
+        <strong><span id="like_count">{{ book.likes }} </span>people like this book.</strong>
+        <button type="button" id="likes" class="btn btn-danger btn-sm" data-bookid="{{book.id}}">
+            like
+        </button></h2>
+        <hr />
+        {% if book.short_description %}
+        <div class="jumbotron">
+            <h4>Description: </h4>
+            <p>{{ book.short_description }}</p>
+        </div>
         {% endif %}
-        <ul>
-            <li>publisher: {{ book.publisher }}</li>
-            <li>Publish Date: {{ book.published_date }}</li>
-            <li>URL: {{ book.related_url }}</li>
-            <li>Description: {{ book.short_description }}</li>
-        </ul>
+            <ul class="list-group">
+                <li class="list-group-item">Publisher: {{ book.publisher }}</li>
+                <li class="list-group-item">Publish Date: {{ book.published_date }}</li>
+                <li class="list-group-item">URL: {{ book.related_url }}</li>
+                {% if book.upload %}
+                    <li class="list-group-item">Download <a href="{% url 'books:download' book.id %}">{{ book.filename }}</a></li>
+                {% else %}
+                    <li class="list-group-item">No e-book uploaded yet.</li>
+                {% endif %}
+            </ul><br />
         <h2><a href="{% url 'books:edit_book' book.id %}"><span class="badge badge-primary">Edit</span></a></h2>
     </div>
 

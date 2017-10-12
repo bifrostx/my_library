@@ -18,6 +18,7 @@ urlpatterns = [
     url(r'^add_category/$', views.add_category, name='add_category'),
     url(r'^category/(?P<category_name_slug>[\w\-]+)/add_book/$', views.add_book, name='add_book'),
     url(r'^like/$', views.like_book, name='like_book'),
+    url(r'^search/', views.search, name='search'),
 ]
 
 if settings.DEBUG:

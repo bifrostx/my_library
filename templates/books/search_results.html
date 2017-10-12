@@ -1,0 +1,21 @@
+{% extends 'books/base.html' %}
+{% load staticfiles %}
+
+{% block body_block %}
+    <h1>Results</h1>
+    {% if results %}
+        <h4>Results for {{ query }}.</h4>
+        {% for b in results %}
+        <ul>
+            <li id="result">
+                <a href="{% url 'books:show_book' b.id %}">{{ b.title }}</a>
+                {% if b.is_recent %}
+                <span class="badge badge-primary">NEW</span>
+                {% endif %} by: {{ b.author }}
+            </li>
+        </ul>
+        {% endfor %}
+    {% else %}
+        <p>No match.</p>
+    {% endif %}
+{% endblock %}

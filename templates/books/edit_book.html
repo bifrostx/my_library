@@ -8,21 +8,59 @@
 
     </div>
     {% if form %}
-         <form role="form" id="book_form" method="post" action="{% url 'books:edit_book' book.id %}"
+     <form role="form" id="book_form" method="post" action="{% url 'books:edit_book' book.id %}"
                enctype="multipart/form-data">
-            {% csrf_token %}
-            {% for hidden in form.hidden_fields %}
-                {{ hidden }}
-            {% endfor %}
-            {% for field in form.visible_fields %}
-                {{ field.errors }}
-                {{ field.help_text }}<br />
-                {{ field.label_tag }}
-                {{ field }}<br />
-            {% endfor %}
-         <br />
-        <button type="submit" name="update">Update</button>
-    </form>
+        <h2>Edit</h2>
+        {% csrf_token %}
+        {% for hidden in form.hidden_fields %}
+            {{ hidden }}
+        {% endfor %}
+        <div class="row">
+            <div class="col">
+                <span style="color:red">{{ form.title.errors }}</span>
+                <label class="form-control-label" for="{{ form.title.id_for_label }}">Title:</label>
+                <input class="form-control" type="text" name="{{ form.title.html_name }}" value="{{ form.title.value }}" required maxlength="128" id="{{ form.title.id_for_label }}" />
+            </div>
+            <div class="col">
+                <span style="color:red">{{ form.author.errors }}</span>
+                <label class="form-control-label" for="{{ form.author.id_for_label }}">Author:</label>
+                <input class="form-control" type="text" name="{{ form.author.html_name }}" value="{{ form.author.value }}" required maxlength="32" id="{{ form.author.id_for_label }}" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <span style="color:red">{{ form.publisher.errors }}</span>
+                <label class="form-control-label" for="{{ form.publisher.id_for_label }}">Publisher:</label>
+                <input class="form-control" type="text" name="{{ form.publisher.html_name }}" value="{{ form.publisher.value }}" maxlength="32" id="{{ form.publisher.id_for_label }}" />
+            </div>
+            <div class="col">
+                <span style="color:red">{{ form.published_date.errors }}</span>
+                <label class="form-control-label" for="{{ form.published_date.id_for_label }}">Published Date:</label>
+                <input class="form-control" type="date" name="{{ form.published_date.html_name }}" value="{{ form.published_date.value }}" id="{{ form.published_date.id_for_label }}" />
+            </div>
+        </div>
+
+        <span style="color:red">{{ form.related_url.errors }}</span>
+        <label class="form-control-label" for="{{ form.related_url.id_for_label }}">Related URL:</label>
+        <input class="form-control" type="url" name="{{ form.related_url.html_name }}" value="{{ form.related_url.value }}" id="{{ form.related_url.id_for_label }}" />
+
+        <span style="color:red">{{ form.short_description.errors }}</span>
+        <label class="form-control-label" for="{{ form.short_description.id_for_label }}">Description:</label>
+        <textarea class="form-control" name="{{ form.short_description.html_name }}" rows="10" cols="40" id="{{ form.short_description.id_for_label }}">{{ form.short_description.value }}</textarea><br />
+
+        <span style="color:red">{{ form.upload.errors }}</span>
+        <label class="custom-file" for="{{ form.upload.id_for_label }}">Upload:
+        {{ form.upload }}<br />
+
+        <!--{% for field in form.visible_fields %}-->
+            <!--{{ field.errors }}-->
+            <!--{{ field.help_text }}<br />-->
+            <!--{{ field.label_tag }}-->
+            <!--{{ field }}<br />-->
+        <!--{% endfor %}-->
+        <br />
+        <button type="submit" class="btn btn-primary" name="submit">Finish</button>
+     </form>
     {% else %}
         <p>No such book.</p>
     {% endif %}

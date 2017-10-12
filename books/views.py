@@ -2,6 +2,7 @@
 import os
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.db.models import Q
 from .models import Category, Book, Tag
 from .forms import CategoryForm, BookForm, TagForm
 
@@ -10,6 +11,7 @@ def index(request):
     most_download_books = Book.objects.order_by('-downloads')[:5]
     most_liked_books = Book.objects.order_by('-likes')[:5]
     categories = Category.objects.all()
+
     return render(request, 'books/index.html',
                   {"most_download_books": most_download_books,
                    "most_liked_books": most_liked_books,
@@ -17,7 +19,6 @@ def index(request):
 
 
 def about(request):
-    print("about")
     return render(request, 'books/about.html')
 
 
@@ -146,3 +147,17 @@ def like_book(request):
             book.save()
 
     return HttpResponse(likes)
+
+
+def search(request):
+
+    if request.method == 'GET':
+        query = request.GET['query']
+        print(query)
+        results = Book.objects.filter(
+            Q(title__icontains=query) | Q(author__icontains=query) | Q(short_description__icontains=query) |
+            Q(tag__tag__icontains=query)
+        )
+
+        return render(request, 'books/search_results.html', {'results': results, 'query': query})
+

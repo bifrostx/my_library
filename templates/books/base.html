@@ -23,7 +23,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarsExampleDefault">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="{% url 'books:index' %}">Home</a>
                     </li>
                     {% get_counts %}
@@ -31,6 +31,11 @@
                         <a class="nav-link" href="{% url 'books:about' %}">About</a>
                     </li>
                 </ul>
+                <form class="form-inline mt-2 mt-md-0" method='GET' action="{% url 'books:search' %}">
+                    <input class="form-control mr-sm-2" type="text"
+                           placeholder="Search" aria-label="Search" name="query">
+                    <button id='search' class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
             </div>
         </nav>
         <div class="container-fluid">

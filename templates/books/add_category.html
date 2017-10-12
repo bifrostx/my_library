@@ -9,12 +9,16 @@
         {% for hidden in form.hidden_fields %}
             {{ hidden }}
         {% endfor %}
-        {% for field in form.visible_fields %}
-            {{ field.errors }}
-            {{ field.help_text }}<br />
-            {{ field }}<br />
-        {% endfor %}
+        <span style="color:red">{{ form.name.errors }}</span>
+        <label class="form-control-label" for="{{ form.name.id_for_label }}">Name of Category</label>
+        <input type="text" class="form-control" id="{{ form.name.id_for_label }}"
+               name="{{ form.name.html_name }}" placeholder="category" required />
+        <!--{% for field in form.visible_fields %}-->
+            <!--{{ field.errors }}-->
+            <!--{{ field.help_text }}<br />-->
+            <!--{{ field }}<br />-->
+        <!--{% endfor %}-->
         <br />
-        <button type="submit" name="submit">Create Category</button>
+        <button type="submit" class="btn btn-primary btn-sm" name="submit">Create Category</button>
     </form>
 {% endblock %}

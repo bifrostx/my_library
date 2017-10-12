@@ -148,10 +148,13 @@ def add_tag(tag):
     t.save()
     return t
 
+
 if __name__ == "__main__":
     print("Starting books population script...")
-    populate()
-
+    # populate()
+    books = Book.objects.filter(title__icontains='o')
+    for book in books:
+        print(book.title)
 
 
 
