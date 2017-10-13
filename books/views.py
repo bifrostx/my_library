@@ -150,14 +150,17 @@ def like_book(request):
 
 
 def search(request):
-
+    results = []
     if request.method == 'GET':
-        query = request.GET['query']
-        print(query)
-        results = Book.objects.filter(
-            Q(title__icontains=query) | Q(author__icontains=query) | Q(short_description__icontains=query) |
-            Q(tag__tag__icontains=query)
-        )
-
-        return render(request, 'books/search_results.html', {'results': results, 'query': query})
+        input = request.GET['query']
+        query_list = input.split()
+        for query in query_list:
+            outputs = Book.objects.filter(
+                Q(title__icontains=query) | Q(author__icontains=query) | Q(short_description__icontains=query) |
+                Q(tag__tag__icontains=query)
+            )
+            for output in outputs:
+                results.append(output)
+    results = set(results)
+    return render(request, 'books/search_results.html', {'results': results, 'query': input})
 
