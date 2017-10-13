@@ -5,6 +5,8 @@ $(document).ready(function() {
 
     $('ul.navbar-nav > li > a[href="' + document.location.pathname + '"]').parent().addClass('active');
 
+    $('ul.nav > li > a[href="' + document.location.pathname + '"]').addClass('active');
+
     $('#likes').click(function(){
         var bookid;
         bookid = $(this).attr("data-bookid");

@@ -1,7 +1,7 @@
 <ul class="nav nav-pills flex-column">
 {% if category_list %}
     {% for c in category_list %}
-        <li class="nav-item" >
+        <li class="nav-item">
             <a class="nav-link" href="{% url 'books:show_category' c.slug %}">{{ c.name }}</a>
         </li>
     {% endfor %}

@@ -2,19 +2,46 @@
 {% load staticfiles %}
 
 {% block body_block %}
-    <h1>All Books</h1>
+<h1>All Books</h1>
+<table class="table table-hover">
+    <thead class="thead-default">
+        <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Publisher</th>
+            <th>URL</th>
+            <th>Download</th>
+        </tr>
+    </thead>
+    <tbody>
     {% if book_list %}
         {% for b in book_list %}
-        <ul>
-            <li>
-                <a href="{% url 'books:show_book' b.id %}">{{ b.title }}</a>
-                {% if b.is_recent %}
-                <span class="badge badge-primary">NEW</span>
-                {% endif %} by: {{ b.author }}
-            </li>
-        </ul>
+        <tr>
+            <th scope="row">{{ b.id }}</th>
+            <td><a href="{% url 'books:show_book' b.id %}">{{ b.title }}</a></td>
+            <td>{{ b.author }}</td>
+            <td>{{ b.publisher }}</td>
+            <td>{{ b.related_url }}</td>
+            {% if b.upload %}
+            <td><a href="/media/{{ b.upload }}">Download</a></td>
+            {% else %}
+            <td></td>
+            {% endif%}
+        </tr>
         {% endfor %}
     {% else %}
-        <p>No books yet.</p>
+        <tr>
+            <th scope="row"></th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
     {% endif %}
+    </tbody>
+</table>
+
+
 {% endblock %}

@@ -28,7 +28,7 @@ def category_list(request):
 
 
 def book_list(request):
-    books = Book.objects.all().order_by('title')
+    books = Book.objects.all().order_by('pk')
     return render(request, 'books/book_list.html', {"book_list": books})
 
 
