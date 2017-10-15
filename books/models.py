@@ -26,6 +26,10 @@ class Category(models.Model):
     class Meta:
         verbose_name_plural = 'Categories'
 
+        permissions = (
+            ("can_add", "Can add new category."),
+        )
+
     def __str__(self):
         return self.name
 
@@ -55,6 +59,11 @@ class Book(models.Model):
     upload = models.FileField(upload_to=category_path, blank=True)
     date_uploaded = models.DateTimeField(editable=False)
     date_modified = models.DateTimeField()
+
+    class Meta:
+        permissions = (
+            ("can_edit", "Can edit the book."),
+        )
 
     def save(self, *args, **kwargs):
         if not self.id:

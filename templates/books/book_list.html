@@ -24,7 +24,7 @@
             <td>{{ b.publisher }}</td>
             <td>{{ b.related_url }}</td>
             {% if b.upload %}
-            <td><a href="/media/{{ b.upload }}">Download</a></td>
+            <td><a href="{% url 'books:download' b.id %}">Download</a></td>
             {% else %}
             <td></td>
             {% endif%}

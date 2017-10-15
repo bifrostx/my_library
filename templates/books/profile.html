@@ -1,0 +1,29 @@
+{% extends "books/base.html" %}
+{% load staticfiles %}
+
+{% block body_block %}
+    <h1>User Profile</h1>
+    {% if user.is_authenticated %}
+    <h4>Personal Information</h4>
+    <p>
+        <span>Username: {{ user.username }}</span><br />
+        <span>Email: {{ user.email }}</span>
+    </p>
+    <h4>Your Permissions</h4>
+    <ul>
+        {% if perms.category.can_add %}
+        <li>Can add new categories.</li>
+        {% else %}
+        <li>Can not add new category.</li>
+        {% endif %}
+        {% if perms.books.can_edit %}
+        <li>Can edit books.</li>
+        {% else %}
+        <li>Can not edit books.</li>
+        {% endif %}
+    </ul>
+    <a href="{% url 'auth_password_change' %}">Change password</a>
+    {% else %}
+        <p>Please log in first.</p>
+    {% endif %}
+{% endblock %}

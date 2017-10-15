@@ -3,6 +3,8 @@ import os
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import permission_required
 from .models import Category, Book, Tag
 from .forms import CategoryForm, BookForm, TagForm
 
@@ -38,6 +40,8 @@ def show_category(request, category_name_slug):
     return render(request, 'books/show_category.html', {'category': category, 'books': books})
 
 
+@login_required
+@permission_required('books.can_edit', raise_exception=True)
 def edit_book(request, id):
     book = Book.objects.get(pk=id)
     tags = Tag.objects.filter(book=book)
@@ -109,6 +113,8 @@ def add_book(request, category_name_slug):
     return render(request, 'books/add_book.html', {'form': form})
 
 
+@login_required
+@permission_required('category.can_add', raise_exception=True)
 def add_category(request):
     form = CategoryForm()
 
@@ -124,6 +130,7 @@ def add_category(request):
     return render(request, 'books/add_category.html', {'form': form})
 
 
+@login_required
 def download(request, id):
     book = Book.objects.get(pk=id)
     book.downloads += 1
@@ -163,4 +170,11 @@ def search(request):
                 results.append(output)
     results = set(results)
     return render(request, 'books/search_results.html', {'results': results, 'query': input})
+
+
+def profile(request):
+    return render(request, 'books/profile.html')
+
+
+
 

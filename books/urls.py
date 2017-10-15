@@ -19,6 +19,7 @@ urlpatterns = [
     url(r'^category/(?P<category_name_slug>[\w\-]+)/add_book/$', views.add_book, name='add_book'),
     url(r'^like/$', views.like_book, name='like_book'),
     url(r'^search/', views.search, name='search'),
+    url(r'^accounts/profile/$', views.profile, name='profile'),
 ]
 
 if settings.DEBUG:

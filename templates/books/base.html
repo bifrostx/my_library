@@ -13,6 +13,7 @@
         <!-- Custom styles for this template -->
         <link href="{% static 'css/dashboard.css' %}" rel="stylesheet">
         <title>My Books</title>
+        {% block head_block %}{% endblock %}
     </head>
 
     <body>
@@ -27,6 +28,21 @@
                         <a class="nav-link" href="{% url 'books:index' %}">Home</a>
                     </li>
                     {% get_counts %}
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'books:profile' %}">{{ user.username }} Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'auth_logout' %}">Log out</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'registration_register' %}">Sign up</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'auth_login' %}">Log in</a>
+                        </li>
+                    {% endif %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'books:about' %}">About</a>
                     </li>

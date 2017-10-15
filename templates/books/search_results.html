@@ -9,9 +9,7 @@
         <ul class="list-group">
             <li id="result" class="list-group-item">
                 <a href="{% url 'books:show_book' b.id %}">{{ b.title }}</a>
-                {% if b.is_recent %}
-                <span class="badge badge-primary">NEW</span>
-                {% endif %} by: {{ b.author }}
+                 by: {{ b.author }}
             </li>
         </ul>
         {% endfor %}
