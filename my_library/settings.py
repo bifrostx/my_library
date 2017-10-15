@@ -138,5 +138,5 @@ REGISTRATION_DEFAULT_FROM_EMAIL = 'bifrost_xin@163.com'
 EMAIL_HOST = 'smtp.163.com'
 EMAIL_PORT = 25
 EMAIL_HOST_USER = 'bifrost_xin@163.com'
-EMAIL_HOST_PASSWORD='wuj1ngl1n'
+EMAIL_HOST_PASSWORD='password'
 
