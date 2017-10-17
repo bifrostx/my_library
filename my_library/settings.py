@@ -103,7 +103,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
@@ -138,5 +137,5 @@ REGISTRATION_DEFAULT_FROM_EMAIL = 'bifrost_xin@163.com'
 EMAIL_HOST = 'smtp.163.com'
 EMAIL_PORT = 25
 EMAIL_HOST_USER = 'bifrost_xin@163.com'
-EMAIL_HOST_PASSWORD='password'
+EMAIL_HOST_PASSWORD='test12345'
 

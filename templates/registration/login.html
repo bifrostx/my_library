@@ -18,7 +18,7 @@
         <input class="form-control" type="{{ field.field.widget.input_type}}" name="{{ field.name }}" id="{{ field.id_for_label }}">
     {% endfor %}
     {% if form.errors %}
-        <div class="alert alert-danger" role="alert">Invalid email or password! Please try again.</div>
+        <div class="alert alert-danger" role="alert">Invalid username or password! Please try again.</div>
     {% endif %}
     <br />
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
